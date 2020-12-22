@@ -1,0 +1,21 @@
+Sub MergeDoubles()
+    
+    Dim myTable As Range
+    Dim address As String
+    
+    Application.ScreenUpdating = False
+    address = "A1:B1500"
+    Set myTable = Range(address)
+    
+    For i = 2 To myTable.Rows.Count
+        For j = i + 1 To myTable.Rows.Count
+            If myTable.Cells(i, 1) = myTable.Cells(j, 1) And Len(myTable.Cells(i, 1)) Then
+                myTable.Cells(i, 2) = myTable.Cells(i, 2) & ", " & myTable.Cells(j, 2)
+                 Range(myTable.Cells(j, 1), myTable.Cells(j, myTable.Columns.Count)).Delete Shift:=xlUp
+                 j = j - 1
+            End If
+        Next j
+    Next i
+    
+     Application.ScreenUpdating = True
+End Sub
